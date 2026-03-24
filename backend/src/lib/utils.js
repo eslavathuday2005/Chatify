@@ -12,15 +12,13 @@ export const generateToken = (userId, res) => {
   });
 
 
-  res.cookie("jwt", token, {
-    maxAge: 7 * 24 * 60 * 60 * 1000,
-    httpOnly: true,
-    secure: ENV.NODE_ENV === "development" ? false : true,
-    sameSite: ENV.NODE_ENV === "development" ? "lax" : "none",
-    domain: ENV.NODE_ENV === "development" ? "localhost" : ".onrender.com",
-    path: "/"
-  });
-
+res.cookie("jwt", token, {
+  maxAge: 7 * 24 * 60 * 60 * 1000,
+  httpOnly: true,
+  secure: true,        // production = true
+  sameSite: "none",    // REQUIRED for cross-domain
+  path: "/"
+});
 
   //res.cookie("jwt", token, {
   //  maxAge: 7 * 24 * 60 * 60 * 1000, // MS
