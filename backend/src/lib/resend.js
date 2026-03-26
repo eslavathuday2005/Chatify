@@ -1,9 +1,17 @@
-import { Resend } from "resend";
+import nodemailer from "nodemailer";
 import { ENV } from "./env.js";
 
-export const resendClient = new Resend(ENV.RESEND_API_KEY);
+export const transporter = nodemailer.createTransport({
+  host: "smtp-relay.brevo.com",
+  port: 587,
+  secure: false, // important for port 587
+  auth: {
+    user: ENV.SMTP_USER,
+    pass: ENV.SMTP_PASS,
+  },
+});
 
 export const sender = {
-  email: ENV.EMAIL_FROM,
+  email: ENV.SENDER_EMAIL,
   name: ENV.EMAIL_FROM_NAME,
 };
